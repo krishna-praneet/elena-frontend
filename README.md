@@ -1,5 +1,5 @@
 # UI Mockup
-![UI Mockup](./public/Images/UI-mockup.jpg)
+![UI Mockup](./public/Images/UI-mockup.png)
 
 # Getting Started with Create React App
 
