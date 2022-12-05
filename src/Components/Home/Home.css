@@ -1,0 +1,21 @@
+.left-div {
+    width: 25%;
+    float: left;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.right-div {
+    float: right;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-grid {
+    height: 100%;
+    overflow: hidden;
+}

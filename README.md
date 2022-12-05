@@ -1,8 +1,8 @@
 # UI Mockup
-![UI Mockup](./public/Images/UI-mockup.png)
+![UI Mockup](./public/assets/UI-mockup.png)
 
 # Architecture
-![Architecture](./public/Images/elena-architecture.png)
+![Architecture](./public/assets/elena-architecture.png)
 
 # Getting Started with Create React App
 
