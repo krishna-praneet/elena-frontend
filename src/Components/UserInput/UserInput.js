@@ -1,5 +1,6 @@
 import { FormControl, Grid, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
 import { Component } from 'react';
+import { getLatAndLong } from '../../Functions/LocationServices'
 import './UserInput.css'
 
 export default class UserInput extends Component {
@@ -7,8 +8,8 @@ export default class UserInput extends Component {
         super(props);
         this.state = {
           componentIsLoading: false,
-          from: 'CICS 150',
-          to: 'The Spoke',
+          from: 'Washington,DC',
+          to: 'Boston,MA',
           accuracy: 20,
           elevation: 2,
           distance: 10,
@@ -16,6 +17,13 @@ export default class UserInput extends Component {
           year: new Date().getFullYear(),
           path: []
         }
+    }
+
+    async findPath() {
+        console.log("Computing path for", this.state.from,this.state.to);
+        const startLocation = await getLatAndLong(this.state.from);
+        const endLocation = await getLatAndLong(this.state.to);
+        console.log("start: ", startLocation, "end: " , endLocation);
     }
 
     render() {
@@ -61,31 +69,13 @@ export default class UserInput extends Component {
                 <br />
                 <br />
                 <Button
-                onClick={() => console.log("Compute path")}
+                onClick={() => {this.findPath()}}
                 variant="contained"
                 color="primary"
                 aria-label="Fetch data for start and end address"
                 className='form-field search-button'>
                     Search
                 </Button>
-                {/* <Grid container className='output-grid'>
-                    <Grid item xs={6} className='form-field'>
-                        <div className='output-label'>
-                            Elevation:
-                        </div>
-                        <div className='output-value'>
-                            {this.state.elevation} ft
-                        </div>
-                    </Grid>
-                    <Grid item xs={6} className='form-field'>
-                        <div className='output-label'>
-                            Distance:
-                        </div>
-                        <div className='output-value'>
-                            {this.state.distance} miles
-                        </div>
-                    </Grid>
-                </Grid> */}
                 <div className='output'>
                     Elevation: {this.state.elevation} ft
                 </div>
