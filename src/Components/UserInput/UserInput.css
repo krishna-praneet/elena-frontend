@@ -1,0 +1,70 @@
+.input-form {
+    background: #87ffd4;
+    padding: 40px;
+    border: 10px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    height: 100%
+}
+
+.form-title {
+    display: flex;
+    justify-content: left;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 10px 0px 60px 0px;
+}
+
+.form-field {
+    padding: 10px 0px 10px 0px !important;
+}
+
+.output-grid .MuiGrid-item {
+    display: flex !important;
+    justify-content: left !important;
+}
+
+.search-button {
+    margin: 25px 0px 25px 0px !important;
+    padding: 5px 10px 5px 10px !important;
+    border-radius: 10px;
+    background-color: #088F8F !important;
+}
+
+.output-label {
+    font-weight: bold;
+    font-size: 20px;
+    display: block;
+}
+
+.output-value {
+    display: block;
+    clear: both;
+    font-size: 20px;
+}
+
+.output {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: left;
+    margin: 20px 0px 10px 0px;
+}
+
+.input-label {
+    font-size: 20px !important;
+}
+
+.input-value {
+    font-size: 22px !important;
+    margin: 17px 0px 17px 0px !important;
+    padding-top: 10px;
+}
+
+.copyright {
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 130px;
+    display: flex;
+    justify-content: right;
+}
