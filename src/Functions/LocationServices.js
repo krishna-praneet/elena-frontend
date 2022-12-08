@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-export const getElevationURL = (lat, lng) => {
-  return `https://www.mapquestapi.com/elevation/v1/profile?key=${process.env.REACT_APP_MAPQUEST_API_KEY}&unit=m&shapeFormat=raw&latLngCollection=${lat},${lng}`;
-};
-
 export const getGeoDataURL = (address) => {
     return `https://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_MAPQUEST_API_KEY}&location=${address}`;
 };
@@ -13,8 +9,6 @@ export async function getLatAndLong(address) {
     await axios
       .get(getGeoDataURL(address))
       .then((resp) => {
-        console.log('Response received');
-        console.log(resp);
         try {
           const longitude = resp.data.results[0].locations[0].displayLatLng.lng;
           const latitude = resp.data.results[0].locations[0].displayLatLng.lat;
@@ -33,11 +27,11 @@ export async function getLatAndLong(address) {
     return data;
 }
 
-export async function getMaxPath(startAddress, endAddress, offset, max) {
-    // let start = await getLatAndLong(startAddress);
-    // let end = await getLatAndLong(endAddress);
-    let start = [42.4580719,-72.584526]
-    let end = [42.388543,-72.524589]
+export async function getMaxPath(startAddress, endAddress, offset) {
+    let start = await getLatAndLong(startAddress);
+    let end = await getLatAndLong(endAddress);
+    console.log("start",start);
+    console.log("end",end);
     const request = {
       start: {
         coordinates: start,
@@ -57,6 +51,7 @@ export async function getMaxPath(startAddress, endAddress, offset, max) {
       .post(`${process.env.REACT_APP_BACKEND_BASE_URL}${process.env.REACT_APP_CALC_MAX_ENDPOINT}`, JSON.stringify(request), {headers: headers})
       .then((resp) => {
         console.log("response",resp);
+        response = resp;
       })
       .catch((err) => {
         console.log("error",err);
@@ -66,11 +61,11 @@ export async function getMaxPath(startAddress, endAddress, offset, max) {
 }
 
 
-export async function getMinPath(startAddress, endAddress, offset, max) {
-    // let start = await getLatAndLong(startAddress);
-    // let end = await getLatAndLong(endAddress);
-    let start = [42.4580719,-72.584526]
-    let end = [42.388543,-72.524589]
+export async function getMinPath(startAddress, endAddress, offset) {
+    let start = await getLatAndLong(startAddress);
+    let end = await getLatAndLong(endAddress);
+    console.log("start",start);
+    console.log("end",end);
     const request = {
       start: {
         coordinates: start,

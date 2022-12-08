@@ -1,6 +1,6 @@
 import { FormControl, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
 import { Component } from 'react';
-import { getMaxPath, getMinPath } from '../../Functions/LocationServices'
+import { getMaxPath, getMinPath, getLatAndLong } from '../../Functions/LocationServices'
 import './UserInput.css'
 
 export default class UserInput extends Component {
@@ -8,29 +8,37 @@ export default class UserInput extends Component {
         super(props);
         this.state = {
           componentIsLoading: false,
-          from: 'Washington,DC',
-          to: 'Boston,MA',
-          accuracy: 20,
+          from: 'Du Bois Library, Amherst',
+          to: 'Spoke, Amherst',
+          accuracy: 10,
           elevation: 2,
           distance: 10,
           toggle: false,
           year: new Date().getFullYear(),
           path: []
         }
+        this.findPath = this.findPath.bind(this);
     }
 
     async findPath() {
-        console.log("Computing path for", this.state.from,this.state.to);
+        console.log("max",this.state.toggle);
+        const start = await getLatAndLong(this.state.from);
+        const end = await getLatAndLong(this.state.to);
+        this.props.onInitial(start,end);
         if(this.state.toggle) {
-            const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy,this.state.toggle);
-            console.log(path);
-            this.state.path = path.data.path;
-            this.props.onPath(this.state.path);
+            const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy);
+            console.log(path.data.path)
+            this.setState(() => {
+                return {path: path.data.path};
+            });
+            this.props.onPath(path.data.path);
         } else {
-            const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy,this.state.toggle);
-            console.log(path);
-            this.state.path = path.data.path;
-            this.props.onPath(this.state.path);
+            const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
+            console.log(path.data.path)
+            this.setState(() => {
+                return {path: path.data.path};
+            });
+            this.props.onPath(path.data.path);
         }
     }
 

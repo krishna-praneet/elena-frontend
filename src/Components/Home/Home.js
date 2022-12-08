@@ -7,27 +7,37 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          path: []
+          path: [],
+          coordinates: {}
         }
         this.onPath = this.onPath.bind(this);
+        this.onInitial = this.onInitial.bind(this);
     }
 
     onPath(path) {
-        console.log("in home",path)
-        this.setState((state) => {
-            return {path: path}
+        this.setState(() => {
+            return {path: path};
         });
-        console.log("after setting",this.state.path)
+    }
+
+    onInitial(start,end) {
+        this.setState(() => {
+            let coordinates = {
+                start: start,
+                end: end
+            };
+            return {coordinates: coordinates};
+        });
     }
 
     render() {
         return (
             <div>
                 <div className='left-div'>
-                    <UserInput onPath={this.onPath}></UserInput>
+                    <UserInput onPath={this.onPath} onInitial={this.onInitial}></UserInput>
                 </div>
                 <div className='right-div'>
-                    <MapView path={this.state.path}></MapView>
+                    <MapView path={this.state.path} coordinates={this.state.coordinates}></MapView>
                 </div>
             </div>
         );
