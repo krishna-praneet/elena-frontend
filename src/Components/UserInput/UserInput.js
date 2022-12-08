@@ -1,6 +1,6 @@
-import { FormControl, Grid, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
 import { Component } from 'react';
-import { getLatAndLong } from '../../Functions/LocationServices'
+import { getMaxPath, getMinPath } from '../../Functions/LocationServices'
 import './UserInput.css'
 
 export default class UserInput extends Component {
@@ -21,9 +21,17 @@ export default class UserInput extends Component {
 
     async findPath() {
         console.log("Computing path for", this.state.from,this.state.to);
-        const startLocation = await getLatAndLong(this.state.from);
-        const endLocation = await getLatAndLong(this.state.to);
-        console.log("start: ", startLocation, "end: " , endLocation);
+        if(this.state.toggle) {
+            const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy,this.state.toggle);
+            console.log(path);
+            this.state.path = path.data.path;
+            this.props.onPath(this.state.path);
+        } else {
+            const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy,this.state.toggle);
+            console.log(path);
+            this.state.path = path.data.path;
+            this.props.onPath(this.state.path);
+        }
     }
 
     render() {
