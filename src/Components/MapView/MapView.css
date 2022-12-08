@@ -7,3 +7,7 @@
     border: 2px solid blue !important;
     border-radius: 20px !important;
 }
+
+.start-end-markers {
+    z-index: 100000;
+}

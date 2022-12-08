@@ -39,17 +39,26 @@ export default class MapView extends Component {
                         key={1}
                         latitude={this.props.coordinates.start[0]}
                         longitude={this.props.coordinates.start[1]}
-                        anchor="bottom"
+                        anchor="center"
+                        offsetTop={-20}
+                        offsetLeft={-10}
+                        className='start-end-markers'
                 >
-                  <LocationOnIcon color="error" /> 
+                    <LocationOnIcon color="error"/> 
+                  
                 </Marker>
                 <Marker
                         key={2}
                         latitude={this.props.coordinates.end[0]}
                         longitude={this.props.coordinates.end[1]}
-                        anchor="bottom"
+                        anchor="center"
+                        offsetTop={-18}
+                        offsetLeft={-8}
+                        className='start-end-markers'
                 >
-                  <LocationOnIcon color="error" /> 
+                  <div>
+                    <LocationOnIcon color="error"/> 
+                  </div>
                 </Marker>
               </> 
             } 
