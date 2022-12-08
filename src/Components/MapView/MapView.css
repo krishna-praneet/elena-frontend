@@ -1,9 +1,9 @@
 .initial-markers {
     border-radius: 20px;
-    border: 8px solid red;
+    border: 5px solid red;
 }
 
 .middle-markers {
-    border: 5px solid blue !important;
+    border: 2px solid blue !important;
     border-radius: 20px !important;
 }

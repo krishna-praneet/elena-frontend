@@ -1,6 +1,7 @@
 import './MapView.css';
 import React, { Component } from 'react';
 import ReactMapGL, { Marker, ScaleControl } from 'react-map-gl';
+import PolylineOverlay from '../PolylineOverlay/PolylineOverlay';
 
 export default class MapView extends Component {
     constructor(props) {
@@ -37,8 +38,6 @@ export default class MapView extends Component {
                         key={1}
                         latitude={this.props.coordinates.start[0]}
                         longitude={this.props.coordinates.start[1]}
-                        offsetTop={-32}
-                        offsetLeft={-18}
                         anchor="bottom"
                 >
                   <div className="initial-markers"></div>
@@ -47,8 +46,6 @@ export default class MapView extends Component {
                         key={2}
                         latitude={this.props.coordinates.end[0]}
                         longitude={this.props.coordinates.end[1]}
-                        offsetTop={-32}
-                        offsetLeft={-18}
                         anchor="bottom"
                 >
                   <div className="initial-markers"></div>
@@ -61,13 +58,30 @@ export default class MapView extends Component {
                     key={element.id}
                     latitude={element.data.coordinates[0]}
                     longitude={element.data.coordinates[1]}
-                    offsetTop={-32}
-                    offsetLeft={-18}
                     anchor="bottom"
                 >
                   <div className="middle-markers"></div>
                 </Marker>
               )
+            )}
+            {this.props.path.length>0 && this.props.path.map(
+              (element, index) =>
+                index !== 0 && (
+                  <PolylineOverlay
+                    color={'green'}
+                    key={index}
+                    points={[
+                      [
+                        this.props.path[index-1].data.coordinates[1],
+                        this.props.path[index-1].data.coordinates[0],
+                      ],
+                      [
+                        this.props.path[index].data.coordinates[1],
+                        this.props.path[index].data.coordinates[0],
+                      ],
+                    ]}
+                  />
+                )
             )}
           </ReactMapGL>
         </>
