@@ -11,8 +11,8 @@ export default class UserInput extends Component {
           from: 'Du Bois Library, Amherst',
           to: 'Spoke, Amherst',
           accuracy: 10,
-          elevation: 2,
-          distance: 10,
+          elevation: 0,
+          distance: 0,
           toggle: false,
           year: new Date().getFullYear(),
           path: []
@@ -21,7 +21,10 @@ export default class UserInput extends Component {
     }
 
     async findPath() {
-        console.log("max",this.state.toggle);
+        if(this.state.from==='' || this.state.to==='') {
+            alert('Please enter valid input');
+            return;
+        }
         const start = await getLatAndLong(this.state.from);
         const end = await getLatAndLong(this.state.to);
         this.props.onInitial(start,end);
@@ -31,12 +34,24 @@ export default class UserInput extends Component {
             this.setState(() => {
                 return {path: path.data.path};
             });
+            this.setState(() => {
+                return {elevation: path.data.elevationGain};
+            });
+            this.setState(() => {
+                return {distance: path.data.distance};
+            });
             this.props.onPath(path.data.path);
         } else {
             const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
             console.log(path.data.path)
             this.setState(() => {
                 return {path: path.data.path};
+            });
+            this.setState(() => {
+                return {elevation: path.data.elevationGain};
+            });
+            this.setState(() => {
+                return {distance: path.data.distance};
             });
             this.props.onPath(path.data.path);
         }
@@ -93,10 +108,10 @@ export default class UserInput extends Component {
                     Search
                 </Button>
                 <div className='output'>
-                    Elevation: {this.state.elevation} ft
+                    Elevation Gain: {this.state.elevation} meters
                 </div>
                 <div className='output'>
-                    Distance: {this.state.distance} miles
+                    Distance: {this.state.distance} meters
                 </div>
                 <div className='copyright'>
                     DEVil's Advocates &copy; {this.state.year}
