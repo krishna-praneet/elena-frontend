@@ -108,10 +108,10 @@ export default class UserInput extends Component {
                     Search
                 </Button>
                 <div className='output'>
-                    Elevation Gain: {this.state.elevation} meters
+                    Elevation Gain: {this.state.elevation} metres
                 </div>
                 <div className='output'>
-                    Distance: {this.state.distance} meters
+                    Distance: {this.state.distance} metres
                 </div>
                 <div className='copyright'>
                     DEVil's Advocates &copy; {this.state.year}

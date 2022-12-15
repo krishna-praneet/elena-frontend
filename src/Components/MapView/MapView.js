@@ -2,6 +2,7 @@ import './MapView.css';
 import React, { Component } from 'react';
 import ReactMapGL, { Marker, ScaleControl } from 'react-map-gl';
 import PolylineOverlay from '../PolylineOverlay/PolylineOverlay';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export default class MapView extends Component {
     constructor(props) {
@@ -38,17 +39,26 @@ export default class MapView extends Component {
                         key={1}
                         latitude={this.props.coordinates.start[0]}
                         longitude={this.props.coordinates.start[1]}
-                        anchor="bottom"
+                        anchor="center"
+                        offsetTop={-20}
+                        offsetLeft={-10}
+                        className='start-end-markers'
                 >
-                  <div className="initial-markers"></div>
+                    <LocationOnIcon color="error"/> 
+                  
                 </Marker>
                 <Marker
                         key={2}
                         latitude={this.props.coordinates.end[0]}
                         longitude={this.props.coordinates.end[1]}
-                        anchor="bottom"
+                        anchor="center"
+                        offsetTop={-18}
+                        offsetLeft={-8}
+                        className='start-end-markers'
                 >
-                  <div className="initial-markers"></div>
+                  <div>
+                    <LocationOnIcon color="error"/> 
+                  </div>
                 </Marker>
               </> 
             } 
