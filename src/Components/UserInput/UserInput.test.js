@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import Home from './Home';
+import UserInput from './UserInput';
 
 test('renders learn react link', () => {
-    render(<Home />);
+  render(<UserInput/>);
 });
