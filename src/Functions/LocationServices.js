@@ -23,6 +23,7 @@ export async function getLatAndLong(address) {
           const longitude = resp.data.results[0].locations[0].displayLatLng.lng;
           const latitude = resp.data.results[0].locations[0].displayLatLng.lat;
           data = [latitude, longitude];
+          console.log("Latitude and Longitude received successfully")
         } catch (error) {
           console.error(
             `Error: ${error}. Error in extracting latitude and/or longitude. Please ensure that a valid address was entered.`
@@ -30,7 +31,7 @@ export async function getLatAndLong(address) {
         }
       })
       .catch((err) => {
-        console.error(`Fetch failed with error ${err.message}`);
+        console.error(`Error in fetching latitude and longitude with error ${err.message}`);
         this.setState({ fetchError: true, isLoading: false });
       });
   
@@ -47,8 +48,7 @@ export async function getLatAndLong(address) {
 export async function getMaxPath(startAddress, endAddress, offset) {
     let start = await getLatAndLong(startAddress);
     let end = await getLatAndLong(endAddress);
-    console.log("start",start);
-    console.log("end",end);
+    
     const request = {
       start: {
         coordinates: start,
@@ -67,11 +67,11 @@ export async function getMaxPath(startAddress, endAddress, offset) {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_BASE_URL}${process.env.REACT_APP_CALC_MAX_ENDPOINT}`, JSON.stringify(request), {headers: headers})
       .then((resp) => {
-        console.log("response",resp);
+        console.log("Response received from backend successfully for calculating Max Path");
         response = resp;
       })
       .catch((err) => {
-        console.log("error",err);
+        console.log("Error in getting max path from backend ",err);
       })
     
     return response;
@@ -87,8 +87,7 @@ export async function getMaxPath(startAddress, endAddress, offset) {
 export async function getMinPath(startAddress, endAddress, offset) {
     let start = await getLatAndLong(startAddress);
     let end = await getLatAndLong(endAddress);
-    console.log("start",start);
-    console.log("end",end);
+   
     const request = {
       start: {
         coordinates: start,
@@ -107,11 +106,11 @@ export async function getMinPath(startAddress, endAddress, offset) {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_BASE_URL}${process.env.REACT_APP_CALC_MIN_ENDPOINT}`, JSON.stringify(request), {headers: headers})
       .then((resp) => {
-        console.log("response",resp);
+        console.log("Response received from backend successfully for calculating Min Path");
         response = resp;
       })
       .catch((err) => {
-        console.log("error",err);
+        console.log("Error in getting min path from backend ",err);
       })
 
     return response;

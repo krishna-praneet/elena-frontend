@@ -46,7 +46,8 @@ export default class UserInput extends Component {
             const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy);
 
             if(path && path.data) {
-
+                
+                console.log("Path with Max elevation gain received successfully using service file")
                 if(path.data.path) {
                     this.setState(() => {
                         return {path: path.data.path};
@@ -69,7 +70,7 @@ export default class UserInput extends Component {
             const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
             
             if(path && path.data) {
-
+                console.log("Path with Min elevation gain received successfully using service file")
                 if(path.data.path) {
                     this.setState(() => {
                         return {path: path.data.path};

@@ -19,6 +19,7 @@ export default class Home extends Component {
      * @param {*} path - set of coordinates of path 
      */
     onPath(path) {
+        console.log("Path received in Home Component from UserInput component")
         this.setState(() => {
             return {path: path};
         });
@@ -30,6 +31,7 @@ export default class Home extends Component {
      * @param {*} end - ending address as latidue and longitude
      */
     onInitial(start,end) {
+        console.log("Initial coordinates received in Home Component from UserInput component")
         this.setState(() => {
             let coordinates = {
                 start: start,
