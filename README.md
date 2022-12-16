@@ -1,5 +1,32 @@
-# UI Mockup
-![UI Mockup](./public/assets/UI-mockup.png)
+# DEVils' Elevation Navigation System
+This elevation navigation system is developed by DEVil's Advocates team:
+<ul>
+    <li> Archana Ganesh
+    <li> Krishna Praneet Gudipaty
+    <li> Om Prakash Prajapath
+</ul>
+
+This system queries from the user:
+<ul>
+    <li> Starting Address
+    <li> Ending Address
+    <li> Elevation Preference
+    <li> Maximum or Minimum Elevation
+</ul>
+and calculates the path based on the inputs given.
+The path is then plotted in the map in real time as shown in the images below.
+
+# User Interface
+<img src="./public/assets/UserInterface.jpg" alt="User Interface">
+
+# User Interface with sample path
+<img src="./public/assets/UserInterfaceWithSamplePath.jpg" alt="User Interface with Sample path">
+
+# A closer look at the path plotted
+<img src="./public/assets/PathCloserLook.jpg" alt="Closer look of plotted path" height="500px">
+
+# Validation on the input from the users
+<img src="./public/assets/InputValidation.jpg" alt="Input Validation" height="800px">
 
 # Architecture
 ![Architecture](./public/assets/elena-architecture.png)
