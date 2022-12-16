@@ -1,5 +1,6 @@
-import { FormControl, Grid, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Button, Typography, Switch } from '@material-ui/core';
 import { Component } from 'react';
+import { getMaxPath, getMinPath, getLatAndLong } from '../../Functions/LocationServices'
 import './UserInput.css'
 
 export default class UserInput extends Component {
@@ -7,14 +8,52 @@ export default class UserInput extends Component {
         super(props);
         this.state = {
           componentIsLoading: false,
-          from: 'CICS 150',
-          to: 'The Spoke',
-          accuracy: 20,
-          elevation: 2,
-          distance: 10,
+          from: 'Du Bois Library, Amherst',
+          to: 'Spoke, Amherst',
+          accuracy: 10,
+          elevation: 0,
+          distance: 0,
           toggle: false,
           year: new Date().getFullYear(),
           path: []
+        }
+        this.findPath = this.findPath.bind(this);
+    }
+
+    async findPath() {
+        if(this.state.from==='' || this.state.to==='') {
+            alert('Please enter valid input');
+            return;
+        }
+        const start = await getLatAndLong(this.state.from);
+        const end = await getLatAndLong(this.state.to);
+        this.props.onInitial(start,end);
+        if(this.state.toggle) {
+            const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy);
+            console.log(path.data.path)
+            this.setState(() => {
+                return {path: path.data.path};
+            });
+            this.setState(() => {
+                return {elevation: path.data.elevationGain};
+            });
+            this.setState(() => {
+                return {distance: path.data.distance};
+            });
+            this.props.onPath(path.data.path);
+        } else {
+            const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
+            console.log(path.data.path)
+            this.setState(() => {
+                return {path: path.data.path};
+            });
+            this.setState(() => {
+                return {elevation: path.data.elevationGain};
+            });
+            this.setState(() => {
+                return {distance: path.data.distance};
+            });
+            this.props.onPath(path.data.path);
         }
     }
 
@@ -61,36 +100,18 @@ export default class UserInput extends Component {
                 <br />
                 <br />
                 <Button
-                onClick={() => console.log("Compute path")}
+                onClick={() => {this.findPath()}}
                 variant="contained"
                 color="primary"
                 aria-label="Fetch data for start and end address"
                 className='form-field search-button'>
                     Search
                 </Button>
-                {/* <Grid container className='output-grid'>
-                    <Grid item xs={6} className='form-field'>
-                        <div className='output-label'>
-                            Elevation:
-                        </div>
-                        <div className='output-value'>
-                            {this.state.elevation} ft
-                        </div>
-                    </Grid>
-                    <Grid item xs={6} className='form-field'>
-                        <div className='output-label'>
-                            Distance:
-                        </div>
-                        <div className='output-value'>
-                            {this.state.distance} miles
-                        </div>
-                    </Grid>
-                </Grid> */}
                 <div className='output'>
-                    Elevation: {this.state.elevation} ft
+                    Elevation Gain: {this.state.elevation} metres
                 </div>
                 <div className='output'>
-                    Distance: {this.state.distance} miles
+                    Distance: {this.state.distance} metres
                 </div>
                 <div className='copyright'>
                     DEVil's Advocates &copy; {this.state.year}

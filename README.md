@@ -4,6 +4,9 @@
 # Architecture
 ![Architecture](./public/assets/elena-architecture.png)
 
+# Setting up the environment
+Create an .env file in the repository parallel to the sample.env file. Replace the values with API keys for running the application. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
