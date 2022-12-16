@@ -34,10 +34,10 @@ export default class Home extends Component {
         return (
             <div>
                 <div className='left-div'>
-                    <UserInput onPath={this.onPath} onInitial={this.onInitial}></UserInput>
+                    <UserInput onPath={this.onPath} onInitial={this.onInitial} data-testid="user-input"></UserInput>
                 </div>
                 <div className='right-div'>
-                    <MapView path={this.state.path} coordinates={this.state.coordinates}></MapView>
+                    <MapView path={this.state.path} coordinates={this.state.coordinates} data-testid="map-view"></MapView>
                 </div>
             </div>
         );
