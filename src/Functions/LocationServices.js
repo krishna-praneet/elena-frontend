@@ -1,9 +1,19 @@
 import axios from 'axios';
 
+/**
+ * Calls a 3rd party API to fetch the latitude and longitude of a given address
+ * @param {*} address - receives address as input
+ * @returns - latitude and longitude of the given address
+ */
 export const getGeoDataURL = (address) => {
     return `https://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_MAPQUEST_API_KEY}&location=${address}`;
 };
 
+/**
+ * Calculates the latitude and longitude coordinates of a given address by using another function
+ * @param {*} address - receives address as input
+ * @returns - latitude and longitude of the given address formatted as necessary
+ */
 export async function getLatAndLong(address) {
     let data = [];
     await axios
@@ -27,6 +37,13 @@ export async function getLatAndLong(address) {
     return data;
 }
 
+/**
+ * Calculates points in a path based on the addresses received as input and offset percentage for maximum elevation gain
+ * @param {*} startAddress - starting address received as input from user
+ * @param {*} endAddress - ending address received as input from user
+ * @param {*} offset - offset percentage received as input from user
+ * @returns - the set of coordinates of points in the path between starting and address address corresponding to the given offset and with maximum elevation gain
+ */
 export async function getMaxPath(startAddress, endAddress, offset) {
     let start = await getLatAndLong(startAddress);
     let end = await getLatAndLong(endAddress);
@@ -60,7 +77,13 @@ export async function getMaxPath(startAddress, endAddress, offset) {
     return response;
 }
 
-
+/**
+ * Calculates points in a path based on the addresses received as input and offset percentage for minimum elevation gain
+ * @param {*} startAddress - starting address received as input from user
+ * @param {*} endAddress - ending address received as input from user
+ * @param {*} offset - offset percentage received as input from user
+ * @returns - the set of coordinates of points in the path between starting and address address corresponding to the given offset and with minimum elevation gain
+ */
 export async function getMinPath(startAddress, endAddress, offset) {
     let start = await getLatAndLong(startAddress);
     let end = await getLatAndLong(endAddress);
