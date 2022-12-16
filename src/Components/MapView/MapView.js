@@ -38,7 +38,7 @@ export default class MapView extends Component {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
           >
             <ScaleControl maxWidth={100} unit={'imperial'} />
-            {this.props.coordinates.start && this.props.coordinates.end && 
+            {this.props.path.length>0 && this.props.coordinates.start && this.props.coordinates.end && 
               <>
                 <Marker
                         key={1}
