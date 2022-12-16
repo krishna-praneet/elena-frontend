@@ -4,8 +4,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
   return (
-    <div className="App">
-      <Home></Home>
+    <div className="App" data-testid="app">
+      <Home data-testid="home"></Home>
     </div>
   );
 }
