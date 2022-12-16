@@ -8,23 +8,31 @@ export default class UserInput extends Component {
         super(props);
         this.state = {
           componentIsLoading: false,
-          from: 'Du Bois Library, Amherst',
-          to: 'Spoke, Amherst',
+          from: props.from ? props.from : '',
+          to: props.to ? props.to : '',
           accuracy: 10,
           elevation: 0,
           distance: 0,
           toggle: false,
           year: new Date().getFullYear(),
-          path: []
+          path: [],
+          isError: false
         }
         this.findPath = this.findPath.bind(this);
     }
 
     async findPath() {
+        this.setState(() => {
+            return {isError: false};
+        });
+        
         if(this.state.from==='' || this.state.to==='') {
-            alert('Please enter valid input');
+            this.setState(() => {
+                return {isError: true};
+            });
             return;
         }
+        
         const start = await getLatAndLong(this.state.from);
         const end = await getLatAndLong(this.state.to);
         this.props.onInitial(start,end);
@@ -56,7 +64,7 @@ export default class UserInput extends Component {
             this.props.onPath(path.data.path);
         }
     }
-
+    
     render() {
         return (
             <div className='input-form'>
@@ -69,6 +77,7 @@ export default class UserInput extends Component {
                     aria-describedby="starting-address"
                     onChange={(e) => this.setState({ from: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "from" }}
                     />
                 </FormControl>
                 <FormControl fullWidth className='form-field'>
@@ -79,6 +88,7 @@ export default class UserInput extends Component {
                     aria-describedby="ending-address"
                     onChange={(e) => this.setState({ to: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "to" }}
                     />
                 </FormControl>
                 <FormControl fullWidth className='form-field'>
@@ -89,6 +99,7 @@ export default class UserInput extends Component {
                     aria-describedby='elevation-preference'
                     onChange={(e) => this.setState({ accuracy: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "elevation-preference" }}
                     />
                 </FormControl>
                 <Typography className='input-label'>{this.state.toggle ? 'Maximize Elevation' : 'Minimize Elevation'}</Typography>
@@ -99,6 +110,9 @@ export default class UserInput extends Component {
                 ></Switch>
                 <br />
                 <br />
+                {this.state.isError && (<div className='error'>
+                    Please enter valid input
+                </div>)}
                 <Button
                 onClick={() => {this.findPath()}}
                 variant="contained"
