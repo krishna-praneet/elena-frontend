@@ -8,55 +8,93 @@ export default class UserInput extends Component {
         super(props);
         this.state = {
           componentIsLoading: false,
-          from: 'Du Bois Library, Amherst',
-          to: 'Spoke, Amherst',
+          from: props.from ? props.from : '',
+          to: props.to ? props.to : '',
           accuracy: 10,
           elevation: 0,
           distance: 0,
           toggle: false,
           year: new Date().getFullYear(),
-          path: []
+          path: [],
+          isError: false
         }
         this.findPath = this.findPath.bind(this);
     }
 
+    /**
+     * Called when user clicks on the search button. 
+     * Validates input and if it's in the necessary format fetches the path with minimum or maximum elevation gain based on the given input and within given offset
+     * Updates the UI with the elevation gain and distance received from the service call
+     * @returns 
+     */
     async findPath() {
+        this.setState(() => {
+            return {isError: false};
+        });
+        
         if(this.state.from==='' || this.state.to==='') {
-            alert('Please enter valid input');
+            this.setState(() => {
+                return {isError: true};
+            });
             return;
         }
+        
         const start = await getLatAndLong(this.state.from);
         const end = await getLatAndLong(this.state.to);
         this.props.onInitial(start,end);
         if(this.state.toggle) {
             const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy);
-            console.log(path.data.path)
-            this.setState(() => {
-                return {path: path.data.path};
-            });
-            this.setState(() => {
-                return {elevation: path.data.elevationGain};
-            });
-            this.setState(() => {
-                return {distance: path.data.distance};
-            });
-            this.props.onPath(path.data.path);
+
+            if(path && path.data) {
+                
+                console.log("Path with Max elevation gain received successfully using service file")
+                if(path.data.path) {
+                    this.setState(() => {
+                        return {path: path.data.path};
+                    });
+                    this.props.onPath(path.data.path);
+                }
+                if(path.data.elevationGain) {
+                    this.setState(() => {
+                        return {elevation: path.data.elevationGain};
+                    });
+                }
+                if(path.data.distance) {
+                    this.setState(() => {
+                        return {distance: path.data.distance};
+                    });
+                }
+            }
+            
         } else {
             const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
-            console.log(path.data.path)
-            this.setState(() => {
-                return {path: path.data.path};
-            });
-            this.setState(() => {
-                return {elevation: path.data.elevationGain};
-            });
-            this.setState(() => {
-                return {distance: path.data.distance};
-            });
-            this.props.onPath(path.data.path);
+            
+            if(path && path.data) {
+                console.log("Path with Min elevation gain received successfully using service file")
+                if(path.data.path) {
+                    this.setState(() => {
+                        return {path: path.data.path};
+                    });
+                    this.props.onPath(path.data.path);
+                }
+                if(path.data.elevationGain) {
+                    this.setState(() => {
+                        return {elevation: path.data.elevationGain};
+                    });
+                }
+                if(path.data.distance) {
+                    this.setState(() => {
+                        return {distance: path.data.distance};
+                    });
+                }
+            }
         }
     }
-
+    
+    /**
+     * Renders the input form to the user to enter starting and ending addresses, offset percentage and whether they want maximum or minimum elevation
+     * @returns 
+     */
     render() {
         return (
             <div className='input-form'>
@@ -69,6 +107,7 @@ export default class UserInput extends Component {
                     aria-describedby="starting-address"
                     onChange={(e) => this.setState({ from: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "from" }}
                     />
                 </FormControl>
                 <FormControl fullWidth className='form-field'>
@@ -79,6 +118,7 @@ export default class UserInput extends Component {
                     aria-describedby="ending-address"
                     onChange={(e) => this.setState({ to: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "to" }}
                     />
                 </FormControl>
                 <FormControl fullWidth className='form-field'>
@@ -89,6 +129,7 @@ export default class UserInput extends Component {
                     aria-describedby='elevation-preference'
                     onChange={(e) => this.setState({ accuracy: e.target.value })}
                     className="input-value"
+                    inputProps={{ "data-testid": "elevation-preference" }}
                     />
                 </FormControl>
                 <Typography className='input-label'>{this.state.toggle ? 'Maximize Elevation' : 'Minimize Elevation'}</Typography>
@@ -99,6 +140,9 @@ export default class UserInput extends Component {
                 ></Switch>
                 <br />
                 <br />
+                {this.state.isError && (<div className='error'>
+                    Please enter valid input
+                </div>)}
                 <Button
                 onClick={() => {this.findPath()}}
                 variant="contained"
@@ -107,11 +151,11 @@ export default class UserInput extends Component {
                 className='form-field search-button'>
                     Search
                 </Button>
-                <div className='output'>
-                    Elevation Gain: {this.state.elevation} metres
+                <div className='output' data-testid="elevation">
+                    Elevation Gain: {this.state.elevation.toFixed(3)} metres
                 </div>
-                <div className='output'>
-                    Distance: {this.state.distance} metres
+                <div className='output' data-testid="distance">
+                    Distance: {this.state.distance.toFixed(3)} metres
                 </div>
                 <div className='copyright'>
                     DEVil's Advocates &copy; {this.state.year}

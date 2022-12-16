@@ -14,13 +14,24 @@ export default class Home extends Component {
         this.onInitial = this.onInitial.bind(this);
     }
 
+    /**
+     * Helps send path data from User Input component to Map View component
+     * @param {*} path - set of coordinates of path 
+     */
     onPath(path) {
+        console.log("Path received in Home Component from UserInput component")
         this.setState(() => {
             return {path: path};
         });
     }
 
+    /**
+     * Helps send address data from User Input component to Map View component
+     * @param {*} start - starting address as latitude and longitude
+     * @param {*} end - ending address as latidue and longitude
+     */
     onInitial(start,end) {
+        console.log("Initial coordinates received in Home Component from UserInput component")
         this.setState(() => {
             let coordinates = {
                 start: start,
@@ -30,14 +41,18 @@ export default class Home extends Component {
         });
     }
 
+    /**
+     * Renders UserInput and MapView components to the user
+     * @returns 
+     */
     render() {
         return (
             <div>
                 <div className='left-div'>
-                    <UserInput onPath={this.onPath} onInitial={this.onInitial}></UserInput>
+                    <UserInput onPath={this.onPath} onInitial={this.onInitial} data-testid="user-input"></UserInput>
                 </div>
                 <div className='right-div'>
-                    <MapView path={this.state.path} coordinates={this.state.coordinates}></MapView>
+                    <MapView path={this.state.path} coordinates={this.state.coordinates} data-testid="map-view"></MapView>
                 </div>
             </div>
         );

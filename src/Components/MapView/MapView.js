@@ -20,6 +20,11 @@ export default class MapView extends Component {
       };
     }
 
+    /**
+     * Renders Map in real time 
+     * Has markers to represent starting and ending addresses entered and the path connecting them based on user specified input
+     * @returns 
+     */
     render() {
       const { viewport } = this.state;
   
@@ -33,7 +38,7 @@ export default class MapView extends Component {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
           >
             <ScaleControl maxWidth={100} unit={'imperial'} />
-            {this.props.coordinates.start && this.props.coordinates.end && 
+            {this.props.path.length>0 && this.props.coordinates.start && this.props.coordinates.end && 
               <>
                 <Marker
                         key={1}

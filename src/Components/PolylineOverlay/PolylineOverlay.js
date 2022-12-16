@@ -2,7 +2,10 @@ import React, { PureComponent } from 'react';
 import { CanvasOverlay } from 'react-map-gl';
 import PropTypes from 'prop-types';
 
-// This helper class was found here: https://github.com/visgl/react-map-gl/issues/591
+/**
+ * Plots the path by connecting consecutive points in the path array
+ * Receives inputs like line width, color of the line
+ */
 export default class PolylineOverlay extends PureComponent {
   _redraw({ width, height, ctx, isDragging, project }) {
     const {

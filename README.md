@@ -1,8 +1,20 @@
-# UI Mockup
-![UI Mockup](./public/assets/UI-mockup.png)
+# DEVils' Elevation Navigation System
+This elevation navigation system is developed by DEVil's Advocates team:
+<ul>
+    <li> Archana Ganesh
+    <li> Krishna Praneet Gudipaty
+    <li> Om Prakash Prajapath
+</ul>
 
-# Architecture
-![Architecture](./public/assets/elena-architecture.png)
+This system queries from the user:
+<ul>
+    <li> Starting Address
+    <li> Ending Address
+    <li> Elevation Preference
+    <li> Maximum or Minimum Elevation
+</ul>
+and calculates the path based on the inputs given.
+The path is then plotted in the map in real time. 
 
 # Setting up the environment
 Create an .env file in the repository parallel to the sample.env file. Replace the values with API keys for running the application. 
@@ -14,6 +26,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install` 
+Installs all the necessary packages mentioned in the package.json file
+
+### `npm install --force`
+Installs forcefully in case of any version conflict between local and global node version. 
 
 ### `npm start`
 
@@ -77,6 +95,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# User Interface
+<img src="./public/assets/UserInterface.jpg" alt="User Interface">
+
+# User Interface with sample path
+<img src="./public/assets/UserInterfaceWithSamplePath.jpg" alt="User Interface with Sample path">
+
+# A closer look at the path plotted
+<img src="./public/assets/PathCloserLook.jpg" alt="Closer look of plotted path" height="500px">
+
+# Validation on the input from the users
+<img src="./public/assets/InputValidation.jpg" alt="Input Validation" height="800px">
 
 
 
