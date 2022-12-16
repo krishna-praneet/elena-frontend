@@ -20,6 +20,11 @@ export default class MapView extends Component {
       };
     }
 
+    /**
+     * Renders Map in real time 
+     * Has markers to represent starting and ending addresses entered and the path connecting them based on user specified input
+     * @returns 
+     */
     render() {
       const { viewport } = this.state;
   

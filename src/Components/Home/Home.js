@@ -14,12 +14,21 @@ export default class Home extends Component {
         this.onInitial = this.onInitial.bind(this);
     }
 
+    /**
+     * Helps send path data from User Input component to Map View component
+     * @param {*} path - set of coordinates of path 
+     */
     onPath(path) {
         this.setState(() => {
             return {path: path};
         });
     }
 
+    /**
+     * Helps send address data from User Input component to Map View component
+     * @param {*} start - starting address as latitude and longitude
+     * @param {*} end - ending address as latidue and longitude
+     */
     onInitial(start,end) {
         this.setState(() => {
             let coordinates = {
@@ -30,6 +39,10 @@ export default class Home extends Component {
         });
     }
 
+    /**
+     * Renders UserInput and MapView components to the user
+     * @returns 
+     */
     render() {
         return (
             <div>

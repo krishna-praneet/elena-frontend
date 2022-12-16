@@ -21,6 +21,12 @@ export default class UserInput extends Component {
         this.findPath = this.findPath.bind(this);
     }
 
+    /**
+     * Called when user clicks on the search button. 
+     * Validates input and if it's in the necessary format fetches the path with minimum or maximum elevation gain based on the given input and within given offset
+     * Updates the UI with the elevation gain and distance received from the service call
+     * @returns 
+     */
     async findPath() {
         this.setState(() => {
             return {isError: false};
@@ -84,6 +90,10 @@ export default class UserInput extends Component {
         }
     }
     
+    /**
+     * Renders the input form to the user to enter starting and ending addresses, offset percentage and whether they want maximum or minimum elevation
+     * @returns 
+     */
     render() {
         return (
             <div className='input-form'>
