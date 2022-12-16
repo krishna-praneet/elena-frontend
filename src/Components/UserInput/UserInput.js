@@ -38,30 +38,49 @@ export default class UserInput extends Component {
         this.props.onInitial(start,end);
         if(this.state.toggle) {
             const path = await getMaxPath(this.state.from, this.state.to, this.state.accuracy);
-            console.log(path.data.path)
-            this.setState(() => {
-                return {path: path.data.path};
-            });
-            this.setState(() => {
-                return {elevation: path.data.elevationGain};
-            });
-            this.setState(() => {
-                return {distance: path.data.distance};
-            });
-            this.props.onPath(path.data.path);
+
+            if(path && path.data) {
+
+                if(path.data.path) {
+                    this.setState(() => {
+                        return {path: path.data.path};
+                    });
+                    this.props.onPath(path.data.path);
+                }
+                if(path.data.elevationGain) {
+                    this.setState(() => {
+                        return {elevation: path.data.elevationGain};
+                    });
+                }
+                if(path.data.distance) {
+                    this.setState(() => {
+                        return {distance: path.data.distance};
+                    });
+                }
+            }
+            
         } else {
             const path = await getMinPath(this.state.from, this.state.to, this.state.accuracy);
-            console.log(path.data.path)
-            this.setState(() => {
-                return {path: path.data.path};
-            });
-            this.setState(() => {
-                return {elevation: path.data.elevationGain};
-            });
-            this.setState(() => {
-                return {distance: path.data.distance};
-            });
-            this.props.onPath(path.data.path);
+            
+            if(path && path.data) {
+
+                if(path.data.path) {
+                    this.setState(() => {
+                        return {path: path.data.path};
+                    });
+                    this.props.onPath(path.data.path);
+                }
+                if(path.data.elevationGain) {
+                    this.setState(() => {
+                        return {elevation: path.data.elevationGain};
+                    });
+                }
+                if(path.data.distance) {
+                    this.setState(() => {
+                        return {distance: path.data.distance};
+                    });
+                }
+            }
         }
     }
     
@@ -121,10 +140,10 @@ export default class UserInput extends Component {
                 className='form-field search-button'>
                     Search
                 </Button>
-                <div className='output'>
+                <div className='output' data-testid="elevation">
                     Elevation Gain: {this.state.elevation} metres
                 </div>
-                <div className='output'>
+                <div className='output' data-testid="distance">
                     Distance: {this.state.distance} metres
                 </div>
                 <div className='copyright'>
