@@ -4,11 +4,11 @@ import UserInput from './UserInput';
 import { Alert } from 'react';
 
 
-test('it should render User Input', () => {
+it('should render User Input', () => {
   render(<UserInput/>);
 });
 
-test("it should check input validation", async () => {
+it("should check input validation", async () => {
     const { getByText } = render(<UserInput from="" to="" />);
 
     try {
@@ -20,7 +20,7 @@ test("it should check input validation", async () => {
     }
 });
 
-test("it should check if error is hidden if input is present", async () => {
+it("should check if error is hidden if input is present", async () => {
     const { getByText } = render(<UserInput from="From" to="To" />);
 
     try {
@@ -32,14 +32,14 @@ test("it should check if error is hidden if input is present", async () => {
     }
 });
 
-test("it should check if from location input 'from' the user is properly read", () => {
+it("should check if from location input 'from' the user is properly read", () => {
     const { getByTestId } = render(<UserInput from="" to="" />);
     const input = getByTestId('from');
     fireEvent.change(input, { target: { value: 'Du Bois Library, Amherst' } })
     expect(screen.getByDisplayValue('Du Bois Library, Amherst')).toBeTruthy();
 });
 
-test("it should check if from location input 'to' the user is properly read", () => {
+it("should check if from location input 'to' the user is properly read", () => {
     const { getByTestId } = render(<UserInput from="" to="" />);
     const input = getByTestId('to');
     fireEvent.change(input, { target: { value: 'The Spoke, Amherst' } })
@@ -47,7 +47,7 @@ test("it should check if from location input 'to' the user is properly read", ()
 });
 
 
-test("it should check if from location input 'elevation preference' the user is properly read", () => {
+it("should check if from location input 'elevation preference' the user is properly read", () => {
     const { getByTestId } = render(<UserInput from="" to="" accuracy="0"/>);
     const input = getByTestId('elevation-preference');
     fireEvent.change(input, { target: { value: 10 } })
