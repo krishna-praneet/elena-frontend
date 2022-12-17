@@ -1,0 +1,13 @@
+.initial-markers {
+    border-radius: 20px;
+    border: 5px solid red;
+}
+
+.middle-markers {
+    border: 2px solid blue !important;
+    border-radius: 20px !important;
+}
+
+.start-end-markers {
+    z-index: 100000;
+}
