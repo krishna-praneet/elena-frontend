@@ -38,7 +38,7 @@ export default class MapView extends Component {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
           >
             <ScaleControl maxWidth={100} unit={'imperial'} />
-            {this.props.path.length>0 && this.props.coordinates.start && this.props.coordinates.end && 
+            {this.props.path && this.props.path.length>0 && this.props.coordinates && this.props.coordinates.start && this.props.coordinates.end && 
               <>
                 <Marker
                         key={1}
@@ -67,7 +67,7 @@ export default class MapView extends Component {
                 </Marker>
               </> 
             } 
-            {this.props.path.length>0 && this.props.path.map(
+            {this.props.path && this.props.path.length>0 && this.props.path.map(
               (element) => (
                 <Marker
                     key={element.id}
@@ -79,7 +79,7 @@ export default class MapView extends Component {
                 </Marker>
               )
             )}
-            {this.props.path.length>0 && this.props.path.map(
+            {this.props.path && this.props.path.length>0 && this.props.path.map(
               (element, index) =>
                 index !== 0 && (
                   <PolylineOverlay

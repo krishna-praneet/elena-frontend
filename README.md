@@ -1,9 +1,9 @@
 # DEVils' Elevation Navigation System
 This elevation navigation system is developed by DEVil's Advocates team:
 <ul>
-    <li> Archana Ganesh
-    <li> Krishna Praneet Gudipaty
-    <li> Om Prakash Prajapath
+    <li> Archana Ganesh (Greenleaf20, archanaganes@umass.edu)
+    <li> Krishna Praneet Gudipaty (krishna.praneet, kgudipaty@umass.edu )
+    <li> Om Prakash Prajapath (OMP-49, oprajapath@umass.edu)
 </ul>
 
 This system queries from the user:

@@ -1,18 +1,19 @@
 import { render } from '@testing-library/react';
 import Home from './Home';
 
-test('renders Home', () => {
-    render(<Home />);
+it('should render home', () => {
+    const home = render(<Home />);
+    expect(home).not.toBe(null);
 });
 
-test("it should render User Input Component", () => {
+it("should render User Input Component", () => {
     const { queryByTestId } = render(<Home />);
     const userInput = queryByTestId('user-input');
   
     expect(userInput).toBeDefined();
 });
 
-test("it should render Map View Component", () => {
+it("should render Map View Component", () => {
     const { queryByTestId } = render(<Home />);
     const mapView = queryByTestId('map-view');
   
