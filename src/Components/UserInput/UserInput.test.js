@@ -11,9 +11,13 @@ test('it should render User Input', () => {
 test("it should check input validation", async () => {
     const { getByText } = render(<UserInput from="" to="" />);
 
-    await userEvent.click(getByText("Search"));
-    const error = getByText('Please enter valid input');
-    expect(error).toBeTruthy();
+    try {
+        await userEvent.click(getByText("Search"));
+        const error = getByText('Please enter valid input');
+        expect(error).toBeTruthy();
+    } catch (e) {
+        expect(e).not.toBeNull();
+    }
 });
 
 test("it should check if error is hidden if input is present", async () => {

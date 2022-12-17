@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react';
 import Home from './Home';
 
-test('renders Home', () => {
-    render(<Home />);
+test('it should render home', () => {
+    const home = render(<Home />);
+    expect(home).not.toBe(null);
 });
 
 test("it should render User Input Component", () => {

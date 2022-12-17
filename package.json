@@ -24,7 +24,7 @@
   "scripts": {
     "start": "set PORT=4200 && react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns",
+    "test": "react-scripts test --transformIgnorePatterns --watchAll --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
